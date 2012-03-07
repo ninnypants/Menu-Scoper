@@ -3,7 +3,7 @@
 Plugin Name: Menu Scoper
 Plugin URI: http://ninnypants.com
 Description: Limit menus on a per user bases regardless of role.
-Version: 0.1
+Version: 0.5
 Author: ninnypants
 Author URI: http://ninnypants.com
 License: GPL2
@@ -37,7 +37,7 @@ function mscope_page(){
 	}
 	</style>
 	<div class="wrap">
-		<div class="icon32"></div>
+		<div id="icon-options-general" class="icon32"></div>
 		<h2>Menu Scope</h2>
 		<form method="post" action="" id="menu-scope">
 			<?php wp_dropdown_users(array('include_selected' => true, )); ?>
@@ -72,6 +72,17 @@ function mscope_page(){
 
 		
 		</form>
+		<script type="text/javascript">
+			mscope = Array();
+			<?php
+			$users = get_users();
+			foreach($users as $usr):
+			?>
+			mscope[<?php echo $usr->ID; ?>] = <?php echo json_encode(get_user_meta($usr->ID, 'menu-scope', true)); ?>;
+			<?php
+			endforeach;
+			?>
+		</script>
 	</div>
 
 	<?php
@@ -106,4 +117,9 @@ function mscope_scope_menu(){
 			}
 		}
 	}
+}
+
+add_action('admin_enqueue_scripts', 'mscope_enqueue_scripts');
+function mscope_enqueue_scripts(){
+	wp_enqueue_script('mscope', plugins_url('mscope.js', __FILE__), array('jquery'), '0.1', true);
 }

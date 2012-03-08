@@ -17,7 +17,7 @@ jQuery(function($){
 		if(typeof mscope[usr] == 'object'){
 			$('#menu-scope input[type="checkbox"]').removeAttr('checked');
 			$.each(mscope[usr], function(i, val){
-				$('#menu-scope input[value="'+val+'"]').attr('checked', 'true');
+				$('#menu-scope input[value="'+val+'"]').attr('checked', 'true').siblings('ul').find('input[type="checkbox"]').removeAttr('disabled');
 			});
 		}else{
 			$('#menu-scope input[type="checkbox"]').attr('checked', 'true');

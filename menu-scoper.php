@@ -42,6 +42,7 @@ function mscope_page(){
 		<h2>Menu Scope</h2>
 		<form method="post" action="" id="menu-scope">
 			<?php wp_dropdown_users(array('include_selected' => true, )); ?>
+			<p>Uncheck menu items to hide them.</p>
 			<ul>
 				<?php
 				$pos = 1;
@@ -73,7 +74,6 @@ function mscope_page(){
 			</ul>
 			<input type="submit" value="Save" name="menu-scope">
 			<?php wp_nonce_field('scope-menu'); ?>
-			<?php var_dump($mscope_menu); ?>
 		</form>
 		<script type="text/javascript">
 			mscope = Array();
